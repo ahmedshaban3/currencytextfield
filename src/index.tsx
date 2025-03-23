@@ -12,8 +12,11 @@ const LINKING_ERROR =
   '- You are not using Expo Go\n';
 
 type MyReactNativePackage1Props = {
-  color: string;
-  style: ViewStyle;
+  style?: ViewStyle;
+  text?: string;
+  fontColor: string;
+  placeholderColor: string;
+  onChangeText?: (event: { nativeEvent: { text: string } }) => void;
 };
 
 const ComponentName = 'MyReactNativePackage1View';
