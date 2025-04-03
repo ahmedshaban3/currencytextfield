@@ -22,7 +22,9 @@ export default function App() {
         }}
         onChangeText={onChangeText}
         fontColor={'#000000'}
+        fontSize={39}
         placeholderColor={'#9A9A9A'}
+        currency={'SAR'}
       />
     </View>
   );

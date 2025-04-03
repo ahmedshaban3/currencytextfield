@@ -7,13 +7,16 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.core.widget.ImageViewCompat
 import com.facebook.react.bridge.Arguments
@@ -30,6 +33,7 @@ class CurrencyInput @JvmOverloads constructor(
 
   private val currencySymbol: ImageView
   private val editText: EditText
+  private val otherCurrency: TextView
   private var hintColor: String = "#9A9A9A"
   private var textColor: String = "#000000"
 
@@ -38,6 +42,7 @@ class CurrencyInput @JvmOverloads constructor(
     LayoutInflater.from(context).inflate(R.layout.currency_input, this, true)
     currencySymbol = findViewById(R.id.ksa_symbol)
     editText = findViewById(R.id.ksa_input)
+    otherCurrency = findViewById(R.id.other_currency)
 
     editText.addTextChangedListener(object : android.text.TextWatcher {
       var currentText = ""
@@ -53,7 +58,7 @@ class CurrencyInput @JvmOverloads constructor(
         if (s.isNullOrEmpty()) return
         val textPaint = editText.paint
         val textWidth = textPaint.measureText(s.toString())
-        val minWidth = dpToPx(50) // Minimum width (adjustable)
+        val minWidth = dpToPx(50)
         val newWidth = maxOf(
           textWidth.toInt() + editText.paddingLeft + editText.paddingRight, minWidth
         )
@@ -82,9 +87,7 @@ class CurrencyInput @JvmOverloads constructor(
       }
 
       override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-      override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-      }
+      override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
     })
   }
 
@@ -121,6 +124,8 @@ class CurrencyInput @JvmOverloads constructor(
 
   @SuppressLint("UseKtx")
   fun setTintColor(color: String) {
+    val parsedColor = Color.parseColor(color)
+    otherCurrency.setTextColor(parsedColor)
     try {
       ImageViewCompat.setImageTintList(
         currencySymbol, android.content.res.ColorStateList.valueOf(Color.parseColor(color))
@@ -136,5 +141,20 @@ class CurrencyInput @JvmOverloads constructor(
   fun setPlaceHolderColor(color: Int, color1: String) {
     hintColor = color1
     editText.setHintTextColor(color)
+  }
+
+  fun setCurrency(currency: String) {
+    if (currency.lowercase() == "sar") {
+      currencySymbol.isVisible = true
+      otherCurrency.isVisible = false
+    } else {
+      otherCurrency.text = currency
+      currencySymbol.isVisible = false
+      otherCurrency.isVisible = true
+    }
+  }
+
+  fun setFontSize(size: Int) {
+    editText.textSize = size.toFloat()
   }
 }

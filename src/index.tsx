@@ -16,6 +16,8 @@ type MyReactNativePackage1Props = {
   text?: string;
   fontColor: string;
   placeholderColor: string;
+  currency: string;
+  fontSize: number;
   onChangeText?: (event: { nativeEvent: { text: string } }) => void;
 };
 

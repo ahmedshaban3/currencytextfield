@@ -32,7 +32,7 @@ class MyReactNativePackage1ViewManager : SimpleViewManager<View>() {
   fun setFontColor(view: CurrencyInput, color: String) {
     try {
       val parsedColor = Color.parseColor(color) // Convert hex string to Color
-      view.setFontColor(parsedColor,color)
+      view.setFontColor(parsedColor, color)
     } catch (e: IllegalArgumentException) {
       Log.e("MyCustomViewManager", "Invalid color: $color")
     }
@@ -44,10 +44,24 @@ class MyReactNativePackage1ViewManager : SimpleViewManager<View>() {
   fun setPlaceHolderColor(view: CurrencyInput, color: String) {
     try {
       val parsedColor = Color.parseColor(color) // Convert hex string to Color
-      view.setPlaceHolderColor(parsedColor,color)
+      view.setPlaceHolderColor(parsedColor, color)
     } catch (e: IllegalArgumentException) {
       Log.e("MyCustomViewManager", "Invalid color: $color")
     }
+  }
+
+  @SuppressLint("UseKtx")
+  @RequiresApi(Build.VERSION_CODES.O)
+  @ReactProp(name = "currency")
+  fun setCurrency(view: CurrencyInput, currency: String) {
+    view.setCurrency(currency)
+  }
+
+  @SuppressLint("UseKtx")
+  @RequiresApi(Build.VERSION_CODES.O)
+  @ReactProp(name = "fontSize")
+  fun fontSize(view: CurrencyInput, size: Int) {
+    view.setFontSize(size)
   }
 
   // Expose event to React Native
