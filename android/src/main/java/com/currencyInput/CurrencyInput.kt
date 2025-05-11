@@ -1,31 +1,27 @@
 @file:Suppress("DEPRECATION")
 
-package com.myreactnativepackage1
+package com.currencyInput
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
-import android.os.Build
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.core.widget.ImageViewCompat
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.uimanager.events.RCTEventEmitter
+import com.myreactnativepackage1.R
 
 @Suppress("SameParameterValue")
-@RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("AppCompatCustomView")
 class CurrencyInput @JvmOverloads constructor(
   context: Context, attrs: AttributeSet? = null
@@ -51,8 +47,7 @@ class CurrencyInput @JvmOverloads constructor(
         reactContext?.getJSModule(RCTEventEmitter::class.java)?.receiveEvent(
           id, "onChangeText", createEventMap(s.toString())
         )
-        val color =
-          if (s.toString().isEmpty()) hintColor else textColor
+        val color = if (s.toString().isEmpty()) hintColor else textColor
         setTintColor(color)
 
         if (s.isNullOrEmpty()) return
@@ -145,12 +140,12 @@ class CurrencyInput @JvmOverloads constructor(
 
   fun setCurrency(currency: String) {
     if (currency.lowercase() == "sar") {
-      currencySymbol.isVisible = true
-      otherCurrency.isVisible = false
+      currencySymbol.visibility = VISIBLE
+      otherCurrency.visibility = GONE
     } else {
       otherCurrency.text = currency
-      currencySymbol.isVisible = false
-      otherCurrency.isVisible = true
+      currencySymbol.visibility = GONE
+      otherCurrency.visibility = VISIBLE
     }
   }
 

@@ -1,4 +1,4 @@
-package com.myreactnativepackage1
+package com.currencyInput
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -11,8 +11,8 @@ import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
 
-class MyReactNativePackage1ViewManager : SimpleViewManager<View>() {
-  override fun getName() = "MyReactNativePackage1View"
+class CurrencyInputViewManager : SimpleViewManager<View>() {
+  override fun getName() = "CurrencyTextField"
 
   @RequiresApi(Build.VERSION_CODES.O)
   override fun createViewInstance(reactContext: ThemedReactContext): ViewGroup {
@@ -64,7 +64,6 @@ class MyReactNativePackage1ViewManager : SimpleViewManager<View>() {
     view.setFontSize(size)
   }
 
-  // Expose event to React Native
   override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any> {
     return mutableMapOf("onChangeText" to mutableMapOf("registrationName" to "onChangeText"))
   }

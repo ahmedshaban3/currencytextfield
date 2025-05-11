@@ -2202,6 +2202,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@neoleap/urpay-components@git+https://gitlab.neoleap.com.sa/neoleap/wallet-core/urpay-components.git#currency_input_android":
+  version: 1.0.2
+  resolution: "@neoleap/urpay-components@https://gitlab.neoleap.com.sa/neoleap/wallet-core/urpay-components.git#commit=d1b0767c33623db7d19cf19f85c9c54bf5683b2c"
+  peerDependencies:
+    react: "*"
+    react-native: ">=0.70.0"
+  checksum: 3f07ddaec1f4738831039470183942db6c1d9499964753be5183164b8bcc44f5da23d401318bbe906b61d5067236950f0671e09cbbc74714989c31ae6daf4a7d
+  languageName: node
+  linkType: hard
+
 "@nicolo-ribaudo/eslint-scope-5-internals@npm:5.1.1-v1":
   version: 5.1.1-v1
   resolution: "@nicolo-ribaudo/eslint-scope-5-internals@npm:5.1.1-v1"
@@ -10402,6 +10412,7 @@ __metadata:
     "@babel/core": ^7.25.2
     "@babel/preset-env": ^7.25.3
     "@babel/runtime": ^7.25.0
+    "@neoleap/urpay-components": "git+https://gitlab.neoleap.com.sa/neoleap/wallet-core/urpay-components.git#currency_input_android"
     "@react-native-community/cli": 15.0.1
     "@react-native-community/cli-platform-android": 15.0.1
     "@react-native-community/cli-platform-ios": 15.0.1
