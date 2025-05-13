@@ -1,45 +1,56 @@
-package com.adaptiveTableView
+package com.adaptiveTableView1
 
+import android.content.Context
+import android.util.AttributeSet
 import android.util.Log
 import android.view.View
-import com.adaptiveTableView1.AdaptiveTableView1
+import android.widget.FrameLayout
+import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.ReadableMap
+import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.ViewGroupManager
 import com.facebook.react.uimanager.annotations.ReactProp
 
 
-class AdaptiveTableViewManager : ViewGroupManager<AdaptiveTableView>() {
+class AdaptiveTableViewManager1 : ViewGroupManager<AdaptiveTableView1>() {
+  override fun getName(): String = "AdaptiveTableView1"
 
-  override fun getName() = "AdaptiveTableView"
-
-  override fun needsCustomLayoutForChildren() = true
-
-  override fun createViewInstance(reactContext: ThemedReactContext): AdaptiveTableView {
-    val view = AdaptiveTableView(reactContext)
-    view.setReactContext(reactContext)
-    return view
+  override fun createViewInstance(reactContext: ThemedReactContext): AdaptiveTableView1 {
+    return AdaptiveTableView1(reactContext)
   }
 
-  @ReactProp(name = "itemSize")
-  fun setItemSize(view: AdaptiveTableView1, map: ReadableMap) {
-    val width = map.getInt("width")
-    val height = map.getInt("height")
-    Log.d("itemWidth",width.toString())
-    Log.d("itemWidth",height.toString())
-    //view.setItemSize(width, height)
-  }
-
-  override fun addView(parent: AdaptiveTableView, child: View, index: Int) {
-    Log.d("addView1","${child.height} , ${child.width}")
+  override fun addView(parent: AdaptiveTableView1, child: View, index: Int) {
     parent.addPage(child, index)
   }
 
-  override fun getChildCount(parent: AdaptiveTableView) = parent.pageCount
-  override fun getChildAt(parent: AdaptiveTableView, index: Int): View = parent.getPage(index)
-  override fun removeViewAt(parent: AdaptiveTableView, index: Int) {}
-  override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any> {
-    return mutableMapOf("onPageSelected" to mutableMapOf("registrationName" to "onPageSelected"))
+  override fun getChildCount(parent: AdaptiveTableView1): Int {
+    return parent.pageCount
+  }
+
+  override fun getChildAt(parent: AdaptiveTableView1, index: Int): View {
+    return parent.getPage(index)
+  }
+
+  override fun removeAllViews(parent: AdaptiveTableView1) {
+    parent.removeAllPages()
+  }
+
+  override fun removeViewAt(parent: AdaptiveTableView1, index: Int) {
+    parent.removePage(index)
+  }
+
+  override fun getExportedCustomBubblingEventTypeConstants(): MutableMap<String, Any> {
+    return mutableMapOf(
+      "onEndReached" to mapOf(
+        "phasedRegistrationNames" to mapOf(
+          "bubbled" to "onEndReached"
+        )
+      )
+    )
   }
 }
+
+
+
 
