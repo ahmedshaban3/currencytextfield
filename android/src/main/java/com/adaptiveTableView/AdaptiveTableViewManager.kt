@@ -1,42 +1,34 @@
-package com.adaptiveTableView1
+package com.adaptiveTableView
 
-import android.content.Context
-import android.util.AttributeSet
-import android.util.Log
 import android.view.View
-import android.widget.FrameLayout
-import com.facebook.react.bridge.ReactMethod
-import com.facebook.react.bridge.ReadableMap
-import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.ViewGroupManager
-import com.facebook.react.uimanager.annotations.ReactProp
 
 
-class AdaptiveTableViewManager1 : ViewGroupManager<AdaptiveTableView1>() {
-  override fun getName(): String = "AdaptiveTableView1"
+class AdaptiveTableViewManager : ViewGroupManager<AdaptiveTableView>() {
+  override fun getName(): String = "AdaptiveTableView"
 
-  override fun createViewInstance(reactContext: ThemedReactContext): AdaptiveTableView1 {
-    return AdaptiveTableView1(reactContext)
+  override fun createViewInstance(reactContext: ThemedReactContext): AdaptiveTableView {
+    return AdaptiveTableView(reactContext)
   }
 
-  override fun addView(parent: AdaptiveTableView1, child: View, index: Int) {
+  override fun addView(parent: AdaptiveTableView, child: View, index: Int) {
     parent.addPage(child, index)
   }
 
-  override fun getChildCount(parent: AdaptiveTableView1): Int {
+  override fun getChildCount(parent: AdaptiveTableView): Int {
     return parent.pageCount
   }
 
-  override fun getChildAt(parent: AdaptiveTableView1, index: Int): View {
+  override fun getChildAt(parent: AdaptiveTableView, index: Int): View {
     return parent.getPage(index)
   }
 
-  override fun removeAllViews(parent: AdaptiveTableView1) {
+  override fun removeAllViews(parent: AdaptiveTableView) {
     parent.removeAllPages()
   }
 
-  override fun removeViewAt(parent: AdaptiveTableView1, index: Int) {
+  override fun removeViewAt(parent: AdaptiveTableView, index: Int) {
     parent.removePage(index)
   }
 

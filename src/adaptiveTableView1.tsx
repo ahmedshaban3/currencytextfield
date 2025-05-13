@@ -15,7 +15,7 @@ type Props = {
   onEndReached: () => void;
 };
 
-const ComponentName = 'AdaptiveTableView1';
+const ComponentName = 'AdaptiveTableView';
 
 const NativeComponent = requireNativeComponent<Props>(ComponentName);
 

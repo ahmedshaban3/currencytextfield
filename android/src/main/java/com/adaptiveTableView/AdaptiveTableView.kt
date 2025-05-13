@@ -1,17 +1,11 @@
-package com.adaptiveTableView1
+package com.adaptiveTableView
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Rect
 import android.util.AttributeSet
-import android.util.Log
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import android.widget.FrameLayout
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.react.bridge.Arguments
@@ -20,7 +14,7 @@ import com.facebook.react.uimanager.events.RCTEventEmitter
 import com.myreactnativepackage1.R
 
 
-class AdaptiveTableView1 @JvmOverloads constructor(
+class AdaptiveTableView @JvmOverloads constructor(
   context: Context, attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
 
