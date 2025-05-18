@@ -1,19 +1,29 @@
 import React, { useRef } from 'react';
 import { useEffect, useMemo, useState } from 'react';
-import { View, StyleSheet, Text, InteractionManager } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  InteractionManager,
+  PermissionsAndroid,
+} from 'react-native';
 import {
   CurrencyInput,
   AdaptivePagerView,
   AdaptiveTableView,
+  CardScannerView,
 } from 'react-native-my-react-native-package1';
 import TableScreen from '../../src/adaptiveTableView1';
 import AdaptiveTableView1 from '../../src/adaptiveTableView1';
 
 export default function App() {
   const [ttt, setT] = useState('1000');
+  const [camera, camerSet] = useState(1);
+
   const [rowIndices, setRowIndices] = useState([]);
 
   useEffect(() => {
+    requestCameraPermission();
     InteractionManager.runAfterInteractions(() => {
       setRowIndices(Array.from({ length: 50 }, (_, i) => i));
     });
@@ -69,9 +79,37 @@ export default function App() {
     setT(event.nativeEvent.text);
     console.log('text is ', ttt);
   };
+  const requestCameraPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        {
+          title: 'Camera Permission',
+          message: 'This app needs access to your camera.',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        }
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('Camera permission granted');
+      } else {
+        console.log('Camera permission denied');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      camerSet(Math.random());
+    }, 5 * 1000);
+    return () => clearInterval(interval);
+  }, []);
   return (
-    <View style={styles.container}>
-      <AdaptiveTableView1
+    <View style={styles.camera}>
+      <CardScannerView style={styles.preview} />
+      {/* <AdaptiveTableView1
         style={{ flex: 1 }}
         onEndReached={() => {
           console.log('Load more triggered!');
@@ -90,8 +128,9 @@ export default function App() {
           >
             <Text>{`Row ${index + 1}`}</Text>
           </View>
-        ))}
+        ))} 
       </AdaptiveTableView1>
+      */}
       {/* <AdaptiveTableView
         style={{ height: '100%' }}
         // onRowSelected={(event) => setSelectedRow(event.nativeEvent.index)}
@@ -163,12 +202,21 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  camera: {
+    height: 300,
+    width: '100%',
   },
   box: {
     width: 60,
     height: 60,
     marginVertical: 20,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: 'black',
+  },
+  preview: {
+    width: '100%',
+    height: '100%',
   },
 });

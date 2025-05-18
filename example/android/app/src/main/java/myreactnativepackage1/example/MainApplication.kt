@@ -3,6 +3,7 @@ package myreactnativepackage1.example
 import android.app.Application
 import com.adaptivePagerView.AdaptivePagerViewPackage
 import com.adaptiveTableView.AdaptiveTableViewPackage
+import com.cardScanner.CardScannerPackage
 import com.currencyInput.CurrencyInputPackage
 import com.facebook.react.PackageList
 import com.facebook.react.ReactApplication
@@ -25,6 +26,7 @@ class MainApplication : Application(), ReactApplication {
           add(CurrencyInputPackage())
           add(AdaptivePagerViewPackage())
           add(AdaptiveTableViewPackage())
+          add(CardScannerPackage())
         }
 
       override fun getJSMainModuleName(): String = "index"

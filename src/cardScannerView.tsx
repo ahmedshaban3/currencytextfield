@@ -6,9 +6,9 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo Go\n';
 
-const ComponentName = 'AdaptiveTableView1';
+const ComponentName = 'CardScannerView';
 
-export const AdaptiveTableView =
+export const CardScannerView =
   UIManager.getViewManagerConfig(ComponentName) != null
     ? requireNativeComponent(ComponentName)
     : () => {
