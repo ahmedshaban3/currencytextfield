@@ -31,7 +31,9 @@ class CardAnalyzer(
       val name = rawText.lines().filter { it.contains(" ") }
         .filter { line -> line.asIterable().none { char -> char.isDigit() } }
         .maxByOrNull { it.length }
-      onDataReady(cardNumber, name, expiry)
+      val isUpperCase = name?.uppercase()  == name
+
+      onDataReady(cardNumber, if(isUpperCase) name else null , expiry)
     }.addOnCompleteListener {
       imageProxy.close()
     }

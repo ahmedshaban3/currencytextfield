@@ -18,8 +18,6 @@ import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.facebook.react.bridge.ReactContext
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
 
 
 @SuppressLint("ViewConstructor")
@@ -30,6 +28,7 @@ class CameraPreviewView constructor(context: Context, attrs: AttributeSet?) :
     scaleType = PreviewView.ScaleType.FILL_CENTER  // or FIT_CENTER, FILL_START
 
   }
+  private var listener: OnCardScanned? = null
   private val cameraExecutor = ContextCompat.getMainExecutor(context)
   private val TAG = "CameraPreviewView"
 
@@ -40,13 +39,6 @@ class CameraPreviewView constructor(context: Context, attrs: AttributeSet?) :
     addView(previewView)
     setupCamera()
   }
-
-  private fun onDataRead(cardNumber: String?, name: String?, expiry: String?): Unit {
-    Log.d("CardInfo", cardNumber.toString())
-    Log.d("CardInfo", name.toString())
-    Log.d("CardInfo", expiry.toString())
-  }
-
 
   private fun setupCamera() {
     val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
@@ -66,9 +58,8 @@ class CameraPreviewView constructor(context: Context, attrs: AttributeSet?) :
           ImageAnalysis.Builder().setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
             .build().also {
               it.setAnalyzer(
-                cameraExecutor,
-                CardAnalyzer(onDataReady = { cardNumber, name, expiry ->
-                  onDataRead(cardNumber, name, expiry)
+                cameraExecutor, CardAnalyzer(onDataReady = { cardNumber, name, expiry ->
+                  listener?.onScanned(cardNumber, name, expiry)
                 })
               )
             }
@@ -124,6 +115,14 @@ class CameraPreviewView constructor(context: Context, attrs: AttributeSet?) :
   override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
     Log.d(TAG, height.toString())
     previewView.layout(0, 0, r - l, b - t)
+  }
+
+  fun setOnCardScannedListener(listener: OnCardScanned) {
+    this.listener = listener
+  }
+
+  interface OnCardScanned {
+    fun onScanned(cardNumber: String?, name: String?, expiry: String?)
   }
 }
 
