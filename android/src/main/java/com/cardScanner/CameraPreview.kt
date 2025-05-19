@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
 import android.util.Log
+import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewTreeObserver
@@ -25,7 +26,7 @@ class CameraPreviewView constructor(context: Context, attrs: AttributeSet?) :
   ViewGroup(context, attrs) {
   private val previewView = PreviewView(context).apply {
     layoutParams = LayoutParams(MATCH_PARENT, MATCH_PARENT)
-    scaleType = PreviewView.ScaleType.FILL_CENTER  // or FIT_CENTER, FILL_START
+    scaleType = PreviewView.ScaleType.FILL_CENTER
 
   }
   private var listener: OnCardScanned? = null
@@ -33,9 +34,6 @@ class CameraPreviewView constructor(context: Context, attrs: AttributeSet?) :
   private val TAG = "CameraPreviewView"
 
   init {
-    previewView.apply {
-      layoutParams = LayoutParams(MATCH_PARENT, MATCH_PARENT)
-    }
     addView(previewView)
     setupCamera()
   }
@@ -104,7 +102,6 @@ class CameraPreviewView constructor(context: Context, attrs: AttributeSet?) :
     val height = MeasureSpec.getSize(heightMeasureSpec)
 
     setMeasuredDimension(width, height)
-    Log.d(TAG, MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY).toString())
 
     previewView.measure(
       MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),

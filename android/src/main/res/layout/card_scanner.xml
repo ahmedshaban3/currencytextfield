@@ -1,28 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/cardContainer"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="@android:color/holo_red_light"
-  android:orientation="vertical">
+  android:foreground="@drawable/red_border"
+  android:orientation="vertical"
+  app:cardCornerRadius="24dp"
+  app:strokeColor="@android:color/black"
+  app:strokeWidth="4dp">
 
   <RelativeLayout
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="350dp"
+    android:layout_height="match_parent"
+    android:background="@drawable/red_border"
     tools:ignore="UselessParent">
 
     <com.cardScanner.CameraPreviewView
       android:id="@+id/previewView"
       android:layout_width="match_parent"
-      android:layout_height="350dp" />
+      android:layout_height="match_parent" />
 
     <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
       android:layout_margin="16dp"
-      android:orientation="vertical"
-      android:gravity="center">
+      android:gravity="center"
+      android:orientation="vertical">
 
       <TextView
         android:id="@+id/cardNumber"
@@ -70,4 +77,4 @@
       android:layout_gravity="top"
       android:background="@android:color/holo_red_light" />
   </RelativeLayout>
-</LinearLayout>
+</androidx.cardview.widget.CardView>

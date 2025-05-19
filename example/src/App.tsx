@@ -108,7 +108,15 @@ export default function App() {
   }, []);
   return (
     <View style={styles.camera}>
-      <CardScannerView style={styles.preview} />
+      <CardScannerView
+        style={styles.preview}
+        borderColor={'#47baa7'}
+        cardHeight={200}
+        onCardScanned={(event) => {
+          const { cardNumber, name, expiry } = event.nativeEvent;
+          console.log('Scanned:', cardNumber, name, expiry);
+        }}
+      />
       {/* <AdaptiveTableView1
         style={{ flex: 1 }}
         onEndReached={() => {
@@ -203,7 +211,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   camera: {
-    height: 300,
+    height: 200,
     width: '100%',
   },
   box: {
@@ -217,6 +225,6 @@ const styles = StyleSheet.create({
   },
   preview: {
     width: '100%',
-    height: '100%',
+    height: 200,
   },
 });
